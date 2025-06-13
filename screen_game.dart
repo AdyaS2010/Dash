@@ -17,4 +17,3 @@ class ScreenGame extends StatelessWidget {
     );
   }
 }
-

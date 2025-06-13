@@ -17,5 +17,3 @@ class ScreenMap extends StatelessWidget {
     );
   }
 }
-
-

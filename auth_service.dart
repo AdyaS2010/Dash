@@ -20,16 +20,19 @@ class AuthService {
 
 
       User? user = result.user;
-
-
-      await _firestore.collection('users').doc(user!.uid).set({
-        'username': username,
-        'email': email,
-        'highScore': 0,
-        'createdAt': Timestamp.now(),
-      });
-
-
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).set({
+          'username': username,
+          'highScore': 0,
+          'levelsUnlocked': {
+            'level1': true,
+            'level2': false,
+            'level3': false,
+            'level4': false,
+            'level5': false,
+          },
+        });
+      }
       return user;
     } catch (e) {
       rethrow;

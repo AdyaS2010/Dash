@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart.ui';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:test_rocket_algebra/screen_map.dart';
+import 'firebase_options.dart';
+import 'screen_sign_up.dart';
+import 'auth_service.dart';
 
 void main() {
   runApp(DashApp());

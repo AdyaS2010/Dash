@@ -986,12 +986,14 @@ class _DashHomeState extends State<DashHome> {
                               level.badge,
                               style: TextStyle(fontSize: 32),
                             ),
-                            Icon(
+                            Icon (
                               isCompleted)
                             ]
                           }
+                      ]
                   )
               }
           }
+       }
     }
 }

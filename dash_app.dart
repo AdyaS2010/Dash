@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'screen_sign_up.dart';
 import 'screen_map.dart';
 import 'auth_service.dart';
+import 'home.dart';
 
 void main() {
   runApp(DashApp());

@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'dart.ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_rocket_algebra/main.dart';
 import 'package:test_rocket_algebra/screen_map.dart';
 import 'firebase_options.dart';
 import 'screen_sign_up.dart';
+import 'screen_map.dart';
 import 'auth_service.dart';
 
 void main() {

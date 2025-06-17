@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:test_rocket_algebra/main.dart';
 import 'screen_map.dart';
 import 'auth_service.dart';
 
@@ -32,7 +29,7 @@ class _SignUpState extends State<SignUp> {
       if (mounted) {
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => MapScreen()),
+          MaterialPageRoute(builder: (context) => const MapScreen()),
           (Route<dynamic> route) => false, // Remove all previous routes
         );
       }
@@ -67,7 +64,7 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
+                    const Text(
                       'Create an Account!', //add monospace font here
                       style: TextStyle(
                         color: Color(0xFFC8C8C8),
@@ -88,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
                         ),
                       ),
-                      style: TextStyle(color:Colors.white, fontSize: 10),
+                      style: const TextStyle(color:Colors.white, fontSize: 10),
                       ),
                     TextField(
                       controller: _emailController,
@@ -105,7 +102,7 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white, fontSize: 10),
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                     TextField(
                       controller: _passwordController,
@@ -121,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                           borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white, fontSize: 10),
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
                       obscureText: true
                     ),
                     const SizedBox(height: 20),

@@ -2,11 +2,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:test_rocket_algebra/screen_map.dart';
+import 'screen_map.dart';
 import 'firebase_options.dart';
 import 'screen_sign_up.dart';
 import 'auth_service.dart';
-
 
 /*COLORS
   silver = Color.fromRGBO(200, 200, 200, 100))
@@ -20,7 +19,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blueGrey
           ),
-        scaffoldBackgroundColor: Color(0xFF210F04),
+        scaffoldBackgroundColor: const Color(0xFF210F04),
         useMaterial3: true,
       ),
       home: const LogIn(),
@@ -62,13 +61,15 @@ class _LogInState extends State<LogIn> {
 
   void _login() async {
     try {
-      await _authService.loginWithEmail(
-        email: _emailController.text.trim(),
+      await _authService.loginWithUsername(
+        username: _emailController.text.trim(), //stores usernae (not eail)
         password: _passwordController.text,
       );
+
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MapScreen()),
+        MaterialPageRoute(builder: (context) => const MapScreen()),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -76,6 +77,8 @@ class _LogInState extends State<LogIn> {
       ));
     }
   }
+
+
 
 
   @override
@@ -109,7 +112,7 @@ class _LogInState extends State<LogIn> {
                   mainAxisSize: MainAxisSize.max, //leave maximum amount of space around the stack
                   children: [ //these should represent the values being stacked
                     const SizedBox(height: 10),
-                    Text(
+                    const Text(
                       'Welcome, Astronaut! Enter your information to get started.', //add monospace font here
                       style: TextStyle(
                         color: Color(0xFFC8C8C8),
@@ -118,6 +121,7 @@ class _LogInState extends State<LogIn> {
                     const SizedBox(height: 15),
                     TextField( //controls username
                       controller: _emailController,
+                      keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
                         hintText: 'Enter Username...',
                         hintStyle: TextStyle(fontSize: 10, color:Color(0xFFC8C8C8),),
@@ -130,7 +134,7 @@ class _LogInState extends State<LogIn> {
                           borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
                         ),
                       ),
-                      style: TextStyle(color:Colors.white, fontSize: 10), //note: this controls the text the user is actually entering!!
+                      style: const TextStyle(color:Colors.white, fontSize: 10), //note: this controls the text the user is actually entering!!
                     ),
                     const SizedBox(height: 10), //space between username and password
                     TextField( //controls password
@@ -148,7 +152,7 @@ class _LogInState extends State<LogIn> {
                           borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white, fontSize: 10), //controls user-entered text
+                      style: const TextStyle(color: Colors.white, fontSize: 10), //controls user-entered text
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -158,7 +162,7 @@ class _LogInState extends State<LogIn> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        backgroundColor: Color.fromRGBO(200, 200,200, 100)
+                        backgroundColor: const Color.fromRGBO(200, 200,200, 100)
                       ),
                       child: const Text(
                         'Sign In',
@@ -187,6 +191,4 @@ class _LogInState extends State<LogIn> {
       ),
     );
   }
-
-
 }

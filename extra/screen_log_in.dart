@@ -1,3 +1,5 @@
+// In-built login function into main start screen file (for log-in + sign-up mechanism) 
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth_service.dart';

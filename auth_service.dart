@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
 
   // SIGN UP WITH EMAIL + USERNAME
   Future<User?> signUpWithEmail({
@@ -15,21 +13,20 @@ class AuthService {
   }) async {
     try {
       // Check if username already exists
-      DocumentSnapshot usernameCheck =
-          await _firestore.collection('usernames').doc(username).get();
-
+      DocumentSnapshot usernameCheck = await _firestore
+          .collection('usernames')
+          .doc(username)
+          .get();
 
       if (usernameCheck.exists) {
         throw Exception("Username already in use.");
       }
-
 
       // Create user
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
 
       User? user = result.user;
       if (user != null) {
@@ -46,7 +43,6 @@ class AuthService {
           },
         });
 
-
         // Save username lookup
         await _firestore.collection('usernames').doc(username).set({
           'uid': user.uid,
@@ -54,13 +50,11 @@ class AuthService {
         });
       }
 
-
       return user;
     } catch (e) {
       rethrow;
     }
   }
-
 
   // LOGIN WITH USERNAME (not email)
   Future<User?> loginWithUsername({
@@ -68,23 +62,21 @@ class AuthService {
     required String password,
   }) async {
     try {
-      DocumentSnapshot snapshot =
-          await _firestore.collection('usernames').doc(username).get();
-
+      DocumentSnapshot snapshot = await _firestore
+          .collection('usernames')
+          .doc(username)
+          .get();
 
       if (!snapshot.exists) {
         throw Exception("Username not found.");
       }
 
-
       String email = snapshot['email'];
-
 
       UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
 
       return result.user;
     } catch (e) {
@@ -92,12 +84,10 @@ class AuthService {
     }
   }
 
-
   // LOGOUT
   Future<void> logout() async {
     await _auth.signOut();
   }
-
 
   // STREAM TO LISTEN TO USER STATE
   Stream<User?> get userChanges => _auth.authStateChanges();

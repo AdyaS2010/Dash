@@ -1,3 +1,6 @@
+// TBD - To Be Done
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,7 +27,9 @@ class ScreenShare extends StatelessWidget {
         return userData['username']; // Return the username
       }
     } catch (e) {
-      print("Error fetching username: $e");
+      if (kDebugMode) {
+        print("Error fetching username: $e");
+      }
     }
 
 
@@ -39,7 +44,7 @@ class ScreenShare extends StatelessWidget {
 
 
     for (var doc in snapshot.docs) {
-      final userData = doc.data() as Map<String, dynamic>;
+      final userData = doc.data();
       leaderboard.add({
         'username': userData['username'],
         'highScore': userData['highScore'] ?? 0,
@@ -53,8 +58,8 @@ class ScreenShare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final colWidth = screenWidth * 0.8;
+    // final screenWidth = MediaQuery.of(context).size.width;
+    // final colWidth = screenWidth * 0.8;
 
 
     return Scaffold(
@@ -85,10 +90,10 @@ class ScreenShare extends StatelessWidget {
                   return Column(
                     children: [
                       const SizedBox(height: 16),
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.leaderboard, color: Colors.white),
-                          const SizedBox(width: 8),
+                          SizedBox(width: 8),
                           Text(
                             'Leaderboard',
                             style: TextStyle(
@@ -117,7 +122,7 @@ class ScreenShare extends StatelessWidget {
 
                           return ListView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: leaderboard.length,
                             itemBuilder: (context, index) {
                               bool isThisMe = leaderboard[index]['username'] == currentUsername;
@@ -129,7 +134,7 @@ class ScreenShare extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: isThisMe ? Colors.deepPurpleAccent : const Color.fromARGB(255, 75, 45, 160),
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                       color: Colors.black26,
                                       blurRadius: 6,
@@ -150,7 +155,7 @@ class ScreenShare extends StatelessWidget {
                                         const SizedBox(width: 8),  // Add some spacing between the icon and the username
                                         Text(
                                           '${index + 1}. ${leaderboard[index]['username']}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
                                           ),
@@ -163,7 +168,7 @@ class ScreenShare extends StatelessWidget {
                                         alignment: Alignment.centerRight,  // Align score to the far right
                                         child: Text(
                                           'Score: ${leaderboard[index]['highScore']}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 16,
                                           ),
@@ -188,8 +193,3 @@ class ScreenShare extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

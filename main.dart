@@ -1,7 +1,8 @@
-import 'dart:ui';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package: flame/flame.dart';
 import 'screen_map.dart';
 import 'firebase_options.dart';
 import 'screen_sign_up.dart';

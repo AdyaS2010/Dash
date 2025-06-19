@@ -1,23 +1,21 @@
+// Page to sign up for game (creating an account) on start screen! 
+
 import 'package:flutter/material.dart';
 import 'screen_map.dart';
 import 'auth_service.dart';
 
-
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
-
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
-
 
 class _SignUpState extends State<SignUp> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final AuthService _authService = AuthService();
-
 
   void _register() async {
     try {
@@ -35,17 +33,16 @@ class _SignUpState extends State<SignUp> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Error: ${e.toString()}"),
-        ));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
       }
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final screenWidth =  MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
     final colWidth = screenWidth * 0.8;
     return Scaffold(
       body: SafeArea(
@@ -58,7 +55,9 @@ class _SignUpState extends State<SignUp> {
                 margin: const EdgeInsets.symmetric(horizontal: 30.0),
                 width: colWidth,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF242325), //**should we really use this color?**
+                  color: const Color(
+                    0xFF242325,
+                  ), //**should we really use this color?**
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
@@ -66,40 +65,58 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     const Text(
                       'Create an Account!', //add monospace font here
-                      style: TextStyle(
-                        color: Color(0xFFC8C8C8),
-                      )
+                      style: TextStyle(color: Color(0xFFC8C8C8)),
                     ),
                     const SizedBox(height: 15),
                     TextField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
                         hintText: 'Enter a new username...',
-                        hintStyle: TextStyle(fontSize: 10, color:Color(0xFFC8C8C8),),
+                        hintStyle: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFFC8C8C8),
+                        ),
                         labelText: 'Username',
-                        labelStyle: TextStyle(fontSize: 10, color: Colors.white),
+                        labelStyle: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(200, 200, 200, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(200, 200, 200, 100),
+                          ),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(60, 137, 109, 100),
+                          ),
                         ),
                       ),
-                      style: const TextStyle(color:Colors.white, fontSize: 10),
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
+                    ),
                     TextField(
                       controller: _emailController,
                       obscureText: true,
                       decoration: const InputDecoration(
                         hintText: 'Enter an email address...',
-                        hintStyle: TextStyle(fontSize: 10, color:Color(0xFFC8C8C8),),
+                        hintStyle: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFFC8C8C8),
+                        ),
                         labelText: 'Email',
-                        labelStyle: TextStyle(fontSize: 10, color: Colors.white),
+                        labelStyle: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(200, 200, 200, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(200, 200, 200, 100),
+                          ),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(60, 137, 109, 100),
+                          ),
                         ),
                       ),
                       style: const TextStyle(color: Colors.white, fontSize: 10),
@@ -108,18 +125,28 @@ class _SignUpState extends State<SignUp> {
                       controller: _passwordController,
                       decoration: const InputDecoration(
                         hintText: 'Enter a password...',
-                        hintStyle: TextStyle(fontSize: 10, color:Color(0xFFC8C8C8),),
+                        hintStyle: TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFFC8C8C8),
+                        ),
                         labelText: 'Password',
-                        labelStyle: TextStyle(fontSize: 10, color: Colors.white),
+                        labelStyle: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(200, 200, 200, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(200, 200, 200, 100),
+                          ),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color.fromRGBO(60, 137, 109, 100)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(60, 137, 109, 100),
+                          ),
                         ),
                       ),
                       style: const TextStyle(color: Colors.white, fontSize: 10),
-                      obscureText: true
+                      obscureText: true,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
@@ -128,16 +155,18 @@ class _SignUpState extends State<SignUp> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: (){Navigator.pop(context);},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text('Back to Sign In'),
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
-          ]
-        )
-      )
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

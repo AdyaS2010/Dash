@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Level1LessonPage extends StatefulWidget {
+  const Level1LessonPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _Level1LessonPageState createState() => _Level1LessonPageState();
 }
 
@@ -15,7 +18,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: AppBar(
         backgroundColor: const Color(0xFF16213E),
-        title: Row(
+        title: const Row(
           children: [
             Icon(Icons.rocket_launch, color: Colors.white),
             SizedBox(width: 8),
@@ -29,12 +32,12 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ],
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -47,30 +50,32 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         ),
         child: SingleChildScrollView(
           controller: _scrollController,
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+              _buildStartGameButtonShort(),
+              const SizedBox(height: 20),
               _buildMissionOverview(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildLearningObjectives(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildKeyConcepts(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildOperations(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildCombiningTerms(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildEvaluatingExpressions(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildPracticeProblems(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildGameConnection(),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               _buildStartGameButton(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -80,15 +85,15 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFF6A5ACD), Color(0xFF9370DB)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 10,
@@ -96,7 +101,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ),
         ],
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -158,14 +163,14 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle('🔑 Key Concepts'),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         _buildConceptCard(
           'What is a Variable?',
           'A variable is a letter that represents an unknown number. Common variables include x, y, z, a, b, c, n, t.',
           'Think of it like this: If you have 5 rockets and someone gives you x more rockets, you now have (5 + x) rockets!',
           Colors.blue,
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         _buildConceptCard(
           'Like Terms vs. Unlike Terms',
           'Like Terms: Same variable, same power\n• 3x and 7x ✓\n• 2y and -5y ✓\n• 4 and 9 ✓ (constants)',
@@ -181,7 +186,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle('🧮 Operations with Variables'),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         _buildOperationCard(
           'Addition & Subtraction',
           'Rule: Only combine like terms!',
@@ -192,7 +197,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ],
           Colors.orange,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         _buildOperationCard(
           'Multiplication',
           'Multiply coefficients and variables separately',
@@ -203,7 +208,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ],
           Colors.purple,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         _buildOperationCard(
           'Division',
           'Divide coefficients and variables separately',
@@ -254,7 +259,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSectionTitle('🏆 Practice Problems'),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         _buildPracticeCard(
           'Warm-up',
           [
@@ -265,7 +270,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ['1) 10a', '2) 3x + 4', '3) 13'],
           Colors.blue,
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         _buildPracticeCard(
           'Challenge',
           [
@@ -282,15 +287,15 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildGameConnection() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFF4CAF50), Color(0xFF45a049)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(15),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 10,
@@ -301,7 +306,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             children: [
               Icon(Icons.games, color: Colors.white, size: 24),
               SizedBox(width: 8),
@@ -315,26 +320,26 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               ),
             ],
           ),
-          SizedBox(height: 12),
-          Text(
+          const SizedBox(height: 12),
+          const Text(
             'In the upcoming game level, you\'ll navigate your rocket through space by solving problems with:',
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...[
             '• Fuel calculations (addition/subtraction)',
             '• Speed adjustments (multiplication/division)',
             '• Resource management (combining like terms)',
             '• Mission parameters (evaluating expressions)',
           ].map((item) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
               item,
-              style: TextStyle(color: Colors.white70, fontSize: 14),
+              style: const TextStyle(color: Colors.white70, fontSize: 14),
             ),
-          )).toList(),
-          SizedBox(height: 12),
-          Text(
+          )),
+          const SizedBox(height: 12),
+          const Text(
             'Each correct answer propels your rocket forward. Wrong answers create obstacles you\'ll need to overcome!',
             style: TextStyle(
               color: Colors.white,
@@ -349,7 +354,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildStartGameButton() {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 60,
         child: ElevatedButton(
@@ -358,14 +363,14 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             Navigator.pushNamed(context, '/level1_game');
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFFF6B6B),
+            backgroundColor: const Color(0xFFFF6B6B),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
             elevation: 8,
             shadowColor: Colors.black54,
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.play_arrow, color: Colors.white, size: 28),
@@ -391,17 +396,61 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
     );
   }
 
+  Widget _buildStartGameButtonShort() {
+    return Center(
+      child: SizedBox(
+        width: double.infinity,
+        height: 36,
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate to game level
+            Navigator.pushNamed(context, '/level1_game');
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFF6B6B),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            elevation: 8,
+            shadowColor: Colors.black54,
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.play_arrow, color: Colors.white, size: 27),
+              SizedBox(width: 10),
+              Text(
+                'START MISSION',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
+              ),
+              SizedBox(width: 12),
+              Text(
+                '🚀',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildSection({
     required IconData icon,
     required String title,
     required List<String> content,
   }) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2A2A4A),
+        color: const Color(0xFF2A2A4A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFF3A3A6A), width: 1),
+        border: Border.all(color: const Color(0xFF3A3A6A), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -409,10 +458,10 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           Row(
             children: [
               Icon(icon, color: Colors.white, size: 20),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -420,18 +469,18 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           ...content.map((text) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 14,
                 height: 1.4,
               ),
             ),
-          )).toList(),
+          )),
         ],
       ),
     );
@@ -440,7 +489,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -450,11 +499,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildConceptCard(String title, String description, String example, Color accentColor) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2A2A4A),
+        color: const Color(0xFF2A2A4A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accentColor.withOpacity(0.3), width: 2),
+        border: Border.all(color: accentColor.withValues(alpha: 0.3), width: 2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,21 +516,21 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             description,
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+            style: const TextStyle(color: Colors.white70, fontSize: 14),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Container(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.1),
+              color: accentColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               example,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 13,
                 fontStyle: FontStyle.italic,
@@ -495,11 +544,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildOperationCard(String title, String rule, List<String> examples, Color accentColor) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2A2A4A),
+        color: const Color(0xFF2A2A4A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accentColor.withOpacity(0.3), width: 1),
+        border: Border.all(color: accentColor.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -512,19 +561,19 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Text(
             rule,
-            style: TextStyle(color: Colors.white70, fontSize: 13),
+            style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...examples.map((example) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
               '• $example',
-              style: TextStyle(color: Colors.white60, fontSize: 12),
+              style: const TextStyle(color: Colors.white60, fontSize: 12),
             ),
-          )).toList(),
+          )),
         ],
       ),
     );
@@ -532,11 +581,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
 
   Widget _buildPracticeCard(String level, List<String> problems, List<String> answers, Color accentColor) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2A2A4A),
+        color: const Color(0xFF2A2A4A),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: accentColor.withOpacity(0.3), width: 1),
+        border: Border.all(color: accentColor.withValues(alpha: 0.3), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -565,20 +614,20 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...problems.map((problem) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
               problem,
-              style: TextStyle(color: Colors.white70, fontSize: 14),
+              style: const TextStyle(color: Colors.white70, fontSize: 14),
             ),
-          )).toList(),
+          )),
           if (_showAnswers) ...[
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: accentColor.withOpacity(0.1),
+                color: accentColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -592,11 +641,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   ...answers.map((answer) => Text(
                     answer,
-                    style: TextStyle(color: Colors.white, fontSize: 13),
-                  )).toList(),
+                    style: const TextStyle(color: Colors.white, fontSize: 13),
+                  )),
                 ],
               ),
             ),

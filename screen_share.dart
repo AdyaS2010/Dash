@@ -390,20 +390,28 @@ class _ScreenShareState extends State<ScreenShare>
     // ignore: unused_local_variable
     Color cardColor;
     Color accentColor;
+    Color rankColor;
+    Color xpColor;
     List<Color> gradientColors;
 
     if (isCurrentUser) {
       gradientColors = [const Color(0xFF7B68EE), const Color(0xFF9370DB)];
       accentColor = const Color(0xFF9370DB);
+      rankColor = const Color.fromARGB(255, 122, 58, 218); // Cyan for current user rank - space/neon theme
+      xpColor = const Color.fromARGB(255, 123, 0, 255);   // Cyan for current user XP - futuristic glow
     } else if (isFirstPlace) {
       gradientColors = [
         const Color(0xFFFFD700).withValues(alpha: 0.3),
         const Color(0xFF6A5ACD),
       ];
       accentColor = const Color(0xFFFFD700);
+      rankColor = const Color(0xFFFFD700);
+      xpColor = const Color(0xFFFFD700);
     } else {
       gradientColors = [const Color(0xFF2A2A4A), const Color(0xFF2A2A4A)];
       accentColor = const Color(0xFF6A5ACD);
+      rankColor = accentColor;
+      xpColor = accentColor;
     }
 
     return AnimatedContainer(
@@ -439,10 +447,10 @@ class _ScreenShareState extends State<ScreenShare>
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: accentColor.withValues(alpha: 0.2),
+                color: (isCurrentUser ? const Color.fromARGB(255, 181, 108, 215) : accentColor).withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(25),
                 border: Border.all(
-                  color: accentColor.withValues(alpha: 0.4),
+                  color: (isCurrentUser ? const Color.fromARGB(255, 85, 0, 255) : accentColor).withValues(alpha: 0.4),
                   width: 2,
                 ),
               ),
@@ -459,7 +467,7 @@ class _ScreenShareState extends State<ScreenShare>
                     Text(
                       '$rank',
                       style: GoogleFonts.orbitron(
-                        color: accentColor,
+                        color: rankColor,
                         fontSize: isCurrentUser ? 20 : 18,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.0,
@@ -524,12 +532,12 @@ class _ScreenShareState extends State<ScreenShare>
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.star, color: accentColor, size: 14),
+                          Icon(Icons.star, color: xpColor, size: 14),
                           const SizedBox(width: 4),
                           Text(
                             '$totalPoints XP',
                             style: GoogleFonts.exo2(
-                              color: accentColor,
+                              color: xpColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.5,

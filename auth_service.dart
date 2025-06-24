@@ -41,6 +41,12 @@ class AuthService {
             'level4': false,
             'level5': false,
           },
+          'levelsComplete':
+              0, //this is simply levelsUnlocked.values.where((value) => value == true).length - 1
+          'levelCount': 0,
+          'questionsCorrect': 0,
+          'totalPoints': 0,
+          'streak': 0,
         });
 
         // Save username lookup

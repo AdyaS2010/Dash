@@ -41,11 +41,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF1A1A2E),
-              Color(0xFF16213E),
-              Color(0xFF0F3460),
-            ],
+            colors: [Color(0xFF1A1A2E), Color(0xFF16213E), Color(0xFF0F3460)],
           ),
         ),
         child: SingleChildScrollView(
@@ -123,10 +119,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           SizedBox(height: 8),
           Text(
             'Master the fundamentals of algebraic expressions and operations',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 16,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 16),
           ),
         ],
       ),
@@ -138,7 +131,8 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       icon: Icons.rocket_launch,
       title: '🚀 Mission Overview',
       content: [
-        'Welcome, Astronaut! In this level, you\'ll learn to work with variables - the building blocks of algebra.',
+        'Welcome, Astronaut!',
+        'In this level, you\'ll learn to work with variables - the building blocks of algebra.',
         'Think of variables as mystery rockets that can carry different values!',
       ],
     );
@@ -201,22 +195,14 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         _buildOperationCard(
           'Multiplication',
           'Multiply coefficients and variables separately',
-          [
-            '5 × n = 5n',
-            'x × y = xy',
-            '2a × 3b = 6ab',
-          ],
+          ['5 × n = 5n', 'x × y = xy', '2a × 3b = 6ab'],
           Colors.purple,
         ),
         const SizedBox(height: 10),
         _buildOperationCard(
           'Division',
           'Divide coefficients and variables separately',
-          [
-            '12y ÷ 4 = 3y',
-            '15ab ÷ 5a = 3b',
-            'x² ÷ x = x',
-          ],
+          ['12y ÷ 4 = 3y', '15ab ÷ 5a = 3b', 'x² ÷ x = x'],
           Colors.teal,
         ),
       ],
@@ -331,13 +317,15 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             '• Speed adjustments (multiplication/division)',
             '• Resource management (combining like terms)',
             '• Mission parameters (evaluating expressions)',
-          ].map((item) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Text(
-              item,
-              style: const TextStyle(color: Colors.white70, fontSize: 14),
+          ].map(
+            (item) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                item,
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
             ),
-          )),
+          ),
           const SizedBox(height: 12),
           const Text(
             'Each correct answer propels your rocket forward. Wrong answers create obstacles you\'ll need to overcome!',
@@ -385,10 +373,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                 ),
               ),
               SizedBox(width: 12),
-              Text(
-                '🚀',
-                style: TextStyle(fontSize: 24),
-              ),
+              Text('🚀', style: TextStyle(fontSize: 24)),
             ],
           ),
         ),
@@ -429,10 +414,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                 ),
               ),
               SizedBox(width: 12),
-              Text(
-                '🚀',
-                style: TextStyle(fontSize: 20),
-              ),
+              Text('🚀', style: TextStyle(fontSize: 20)),
             ],
           ),
         ),
@@ -470,17 +452,19 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             ],
           ),
           const SizedBox(height: 12),
-          ...content.map((text) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 14,
-                height: 1.4,
+          ...content.map(
+            (text) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
               ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -497,7 +481,12 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
     );
   }
 
-  Widget _buildConceptCard(String title, String description, String example, Color accentColor) {
+  Widget _buildConceptCard(
+    String title,
+    String description,
+    String example,
+    Color accentColor,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -542,7 +531,12 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
     );
   }
 
-  Widget _buildOperationCard(String title, String rule, List<String> examples, Color accentColor) {
+  Widget _buildOperationCard(
+    String title,
+    String rule,
+    List<String> examples,
+    Color accentColor,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -567,19 +561,26 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
           const SizedBox(height: 8),
-          ...examples.map((example) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Text(
-              '• $example',
-              style: const TextStyle(color: Colors.white60, fontSize: 12),
+          ...examples.map(
+            (example) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                '• $example',
+                style: const TextStyle(color: Colors.white60, fontSize: 12),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildPracticeCard(String level, List<String> problems, List<String> answers, Color accentColor) {
+  Widget _buildPracticeCard(
+    String level,
+    List<String> problems,
+    List<String> answers,
+    Color accentColor,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -615,13 +616,15 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             ],
           ),
           const SizedBox(height: 8),
-          ...problems.map((problem) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Text(
-              problem,
-              style: const TextStyle(color: Colors.white70, fontSize: 14),
+          ...problems.map(
+            (problem) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                problem,
+                style: const TextStyle(color: Colors.white70, fontSize: 14),
+              ),
             ),
-          )),
+          ),
           if (_showAnswers) ...[
             const SizedBox(height: 12),
             Container(
@@ -642,10 +645,12 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  ...answers.map((answer) => Text(
-                    answer,
-                    style: const TextStyle(color: Colors.white, fontSize: 13),
-                  )),
+                  ...answers.map(
+                    (answer) => Text(
+                      answer,
+                      style: const TextStyle(color: Colors.white, fontSize: 13),
+                    ),
+                  ),
                 ],
               ),
             ),

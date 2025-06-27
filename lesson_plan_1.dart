@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'game.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Level1LessonPage extends StatefulWidget {
   const Level1LessonPage({super.key});
@@ -18,15 +20,17 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       backgroundColor: const Color(0xFF1A1A2E),
       appBar: AppBar(
         backgroundColor: const Color(0xFF16213E),
-        title: const Row(
+        title: Row(
           children: [
-            Icon(Icons.rocket_launch, color: Colors.white),
-            SizedBox(width: 8),
+            const Icon(Icons.rocket, color: Colors.white),
+            // const Icon(Icons.rocket_launch_sharp, color: Colors.white),
+            const SizedBox(width: 8),
             Text(
               'DASH - Level 1',
-              style: TextStyle(
+              style: GoogleFonts.orbitron(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ],
@@ -97,17 +101,19 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             children: [
-              Icon(Icons.functions, color: Colors.white, size: 30),
-              SizedBox(width: 10),
+              const Icon(Icons.functions, color: Colors.white, size: 30),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   'Basic Operations with Variables',
-                  style: TextStyle(
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.orbitron(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -116,10 +122,17 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               ),
             ],
           ),
-          SizedBox(height: 8),
-          Text(
-            'Master the fundamentals of algebraic expressions and operations',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
+          const SizedBox(height: 8),
+          Center(
+            child: Text(
+              'Master the fundamentals of algebraic expressions and operations',
+              // textAlign: TextAlign.center,
+              style: GoogleFonts.rajdhani(
+                color: Colors.white70,
+                fontSize: 16,
+                height: 1.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -129,7 +142,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildMissionOverview() {
     return _buildSection(
       icon: Icons.rocket_launch,
-      title: '🚀 Mission Overview',
+      title: 'Mission Overview 🚀',
       content: [
         'Welcome, Astronaut!',
         'In this level, you\'ll learn to work with variables - the building blocks of algebra.',
@@ -141,7 +154,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildLearningObjectives() {
     return _buildSection(
       icon: Icons.school,
-      title: '📚 What You\'ll Learn',
+      title: 'What You\'ll Learn 📚',
       content: [
         '• What variables are and how to use them',
         '• Adding and subtracting with variables',
@@ -212,7 +225,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildCombiningTerms() {
     return _buildSection(
       icon: Icons.merge_type,
-      title: '🎯 Combining Like Terms',
+      title: 'Combining Like Terms 🎯',
       content: [
         'Step-by-step process:',
         '1. Identify like terms (same variable, same power)',
@@ -229,7 +242,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildEvaluatingExpressions() {
     return _buildSection(
       icon: Icons.calculate,
-      title: '🔢 Evaluating Expressions',
+      title: 'Evaluating Expressions 🔢',
       content: [
         'Substitution: Replace variables with given numbers',
         '',
@@ -292,13 +305,13 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.games, color: Colors.white, size: 24),
-              SizedBox(width: 8),
+              const Icon(Icons.games, color: Colors.white, size: 24),
+              const SizedBox(width: 8),
               Text(
-                '🎮 Game Connection',
-                style: TextStyle(
+                'Game Connection 🎮',
+                style: GoogleFonts.orbitron(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -307,9 +320,13 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'In the upcoming game level, you\'ll navigate your rocket through space by solving problems with:',
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: GoogleFonts.rajdhani(
+              color: Colors.white,
+              fontSize: 16,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 8),
           ...[
@@ -322,17 +339,22 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 item,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
+                style: GoogleFonts.rajdhani(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  height: 1.2,
+                ),
               ),
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Each correct answer propels your rocket forward. Wrong answers create obstacles you\'ll need to overcome!',
-            style: TextStyle(
+            style: GoogleFonts.playfairDisplay(
               color: Colors.white,
               fontSize: 14,
               fontStyle: FontStyle.italic,
+              height: 1.3,
             ),
           ),
         ],
@@ -347,8 +369,13 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         height: 60,
         child: ElevatedButton(
           onPressed: () {
-            // Navigate to game level
-            Navigator.pushNamed(context, '/level1_game');
+            // navigate to game level
+            Navigator.pushNamed(context, '/game');
+            /*
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => const GameScreen(level: 1), // Pass the level here
+            ));
+            */
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFF6B6B),
@@ -358,22 +385,22 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             elevation: 8,
             shadowColor: Colors.black54,
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.play_arrow, color: Colors.white, size: 28),
-              SizedBox(width: 12),
+              const Icon(Icons.play_arrow, color: Colors.white, size: 28),
+              const SizedBox(width: 12),
               Text(
                 'START MISSION',
-                style: TextStyle(
+                style: GoogleFonts.abrilFatface(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
                 ),
               ),
-              SizedBox(width: 12),
-              Text('🚀', style: TextStyle(fontSize: 24)),
+              const SizedBox(width: 12),
+              const Text('🚀', style: TextStyle(fontSize: 24)),
             ],
           ),
         ),
@@ -389,7 +416,12 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         child: ElevatedButton(
           onPressed: () {
             // Navigate to game level
-            Navigator.pushNamed(context, '/level1_game');
+            Navigator.pushNamed(context, '/game');
+            /*
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => const GameScreen(level: 1), // Pass the level here
+            ));
+            */
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFF6B6B),
@@ -399,22 +431,22 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             elevation: 8,
             shadowColor: Colors.black54,
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.play_arrow, color: Colors.white, size: 27),
-              SizedBox(width: 10),
+              const Icon(Icons.play_arrow, color: Colors.white, size: 27),
+              const SizedBox(width: 10),
               Text(
                 'START MISSION',
-                style: TextStyle(
+                style: GoogleFonts.abrilFatface(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
                 ),
               ),
-              SizedBox(width: 12),
-              Text('🚀', style: TextStyle(fontSize: 20)),
+              const SizedBox(width: 12),
+              const Text('☄️', style: TextStyle(fontSize: 20)), // 🧮
             ],
           ),
         ),
@@ -443,7 +475,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: const TextStyle(
+                style: GoogleFonts.orbitron(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -457,7 +489,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 text,
-                style: const TextStyle(
+                style: GoogleFonts.rajdhani(
                   color: Colors.white70,
                   fontSize: 14,
                   height: 1.4,
@@ -473,7 +505,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: GoogleFonts.orbitron(
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.bold,
@@ -499,7 +531,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.exo2(
               color: accentColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -508,7 +540,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           const SizedBox(height: 8),
           Text(
             description,
-            style: const TextStyle(color: Colors.white70, fontSize: 14),
+            style: GoogleFonts.rajdhani(
+              color: Colors.white70,
+              fontSize: 14,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 8),
           Container(
@@ -519,10 +555,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             ),
             child: Text(
               example,
-              style: const TextStyle(
+              style: GoogleFonts.rajdhani(
                 color: Colors.white,
                 fontSize: 13,
                 fontStyle: FontStyle.italic,
+                height: 1.3,
               ),
             ),
           ),
@@ -549,7 +586,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: GoogleFonts.exo2(
               color: accentColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -558,7 +595,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
           const SizedBox(height: 6),
           Text(
             rule,
-            style: const TextStyle(color: Colors.white70, fontSize: 13),
+            style: GoogleFonts.rajdhani(
+              color: Colors.white70,
+              fontSize: 13,
+              height: 1.2,
+            ),
           ),
           const SizedBox(height: 8),
           ...examples.map(
@@ -566,7 +607,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 '• $example',
-                style: const TextStyle(color: Colors.white60, fontSize: 12),
+                style: GoogleFonts.rajdhani(
+                  color: Colors.white60,
+                  fontSize: 12,
+                  height: 1.2,
+                ),
               ),
             ),
           ),
@@ -596,7 +641,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
             children: [
               Text(
                 level,
-                style: TextStyle(
+                style: GoogleFonts.exo2(
                   color: accentColor,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -610,7 +655,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                 },
                 child: Text(
                   _showAnswers ? 'Hide Answers' : 'Show Answers',
-                  style: TextStyle(color: accentColor, fontSize: 12),
+                  style: GoogleFonts.rajdhani(
+                    color: accentColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -621,7 +670,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
               padding: const EdgeInsets.symmetric(vertical: 2),
               child: Text(
                 problem,
-                style: const TextStyle(color: Colors.white70, fontSize: 14),
+                style: GoogleFonts.rajdhani(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  height: 1.3,
+                ),
               ),
             ),
           ),
@@ -638,7 +691,7 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                 children: [
                   Text(
                     'Answers:',
-                    style: TextStyle(
+                    style: GoogleFonts.exo2(
                       color: accentColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -648,7 +701,11 @@ class _Level1LessonPageState extends State<Level1LessonPage> {
                   ...answers.map(
                     (answer) => Text(
                       answer,
-                      style: const TextStyle(color: Colors.white, fontSize: 13),
+                      style: GoogleFonts.rajdhani(
+                        color: Colors.white,
+                        fontSize: 13,
+                        height: 1.2,
+                      ),
                     ),
                   ),
                 ],

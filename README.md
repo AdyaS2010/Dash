@@ -117,4 +117,7 @@ It was built to rewire how students *feel* about learning.
 We took the science behind motivation — flow state, feedback loops, habit formation, and social visibility, and wrapped it in a world of rockets, statistics, and discovery. Every decision, from color palettes to question pacing, was made with *real learners* in mind; to empower students to feel challenged, seen, and capable.
 
 And if DashQuest helps even one student feel excited instead of overwhelmed, then this wasn’t just a project. 
-It was a mission well worth taking. 
+It was a mission well worth taking!
+
+For inquiries, please feel free to contact: mathtrix2048@gmail.com
+Thank you so much!

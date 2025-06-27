@@ -1,5 +1,3 @@
-// To ensure all dependencies, flutter versions, sdk and ndk are up to date and running alright -> find in: android/app/src/build.gradle.kts 
-
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration

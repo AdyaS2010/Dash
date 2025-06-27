@@ -125,10 +125,7 @@ class _ScreenShareState extends State<ScreenShare>
                 ),
               ),
               const SizedBox(width: 4),
-              Text(
-                '🚀',
-                style: const TextStyle(fontSize: 16),
-              ),
+              // Text('🚀', style: const TextStyle(fontSize: 16)),
             ],
           ),
           const Spacer(),
@@ -166,7 +163,7 @@ class _ScreenShareState extends State<ScreenShare>
                   if (context.mounted) {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      '/',
+                      '/login',
                       (route) => false,
                     );
                   }
@@ -245,8 +242,8 @@ class _ScreenShareState extends State<ScreenShare>
           (levelsUnlocked['level2'] == true ? 1 : 0) +
           (levelsUnlocked['level3'] == true ? 1 : 0) +
           (levelsUnlocked['level4'] == true ? 1 : 0) +
-          (levelsUnlocked['level5'] == true ? 1 : 0)
-          - 1;
+          (levelsUnlocked['level5'] == true ? 1 : 0) -
+          1;
       if (levelsCompleted < 0) {
         levelsCompleted = 0;
       }
@@ -397,8 +394,18 @@ class _ScreenShareState extends State<ScreenShare>
     if (isCurrentUser) {
       gradientColors = [const Color(0xFF7B68EE), const Color(0xFF9370DB)];
       accentColor = const Color(0xFF9370DB);
-      rankColor = const Color.fromARGB(255, 122, 58, 218); // Cyan for current user rank - space/neon theme
-      xpColor = const Color.fromARGB(255, 123, 0, 255);   // Cyan for current user XP - futuristic glow
+      rankColor = const Color.fromARGB(
+        255,
+        122,
+        58,
+        218,
+      ); // Cyan for current user rank - space/neon theme
+      xpColor = const Color.fromARGB(
+        255,
+        123,
+        0,
+        255,
+      ); // Cyan for current user XP - futuristic glow
     } else if (isFirstPlace) {
       gradientColors = [
         const Color(0xFFFFD700).withValues(alpha: 0.3),
@@ -447,10 +454,18 @@ class _ScreenShareState extends State<ScreenShare>
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: (isCurrentUser ? const Color.fromARGB(255, 181, 108, 215) : accentColor).withValues(alpha: 0.2),
+                color:
+                    (isCurrentUser
+                            ? const Color.fromARGB(255, 181, 108, 215)
+                            : accentColor)
+                        .withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(25),
                 border: Border.all(
-                  color: (isCurrentUser ? const Color.fromARGB(255, 85, 0, 255) : accentColor).withValues(alpha: 0.4),
+                  color:
+                      (isCurrentUser
+                              ? const Color.fromARGB(255, 85, 0, 255)
+                              : accentColor)
+                          .withValues(alpha: 0.4),
                   width: 2,
                 ),
               ),

@@ -119,5 +119,5 @@ We took the science behind motivation — flow state, feedback loops, habit form
 And if DashQuest helps even one student feel excited instead of overwhelmed, then this wasn’t just a project. 
 It was a mission well worth taking!
 
-For inquiries, please feel free to contact: mathtrix2048@gmail.com
+For inquiries, please feel free to contact: mathtrix2048@gmail.com.
 Thank you so much!

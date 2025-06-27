@@ -1,5 +1,4 @@
-# DashQuest
-# 🚀 DashQuest
+# 🚀DashQuest🚀
 
 ## 🎯 Mission Statement  
 *DashQuest makes mathematics fun, social, and engaging for pre-teen students, transforming foundational algebra practice into competitive, space-themed adventures!*

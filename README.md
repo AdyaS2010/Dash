@@ -39,7 +39,7 @@ DashQuest isn’t limited to math—its framework can scale to other subjects li
    **Settings → Security → Unknown Sources**  
 3. Transfer and open the APK file
 
-> We plan to launch on TestFlight and app stores soon. For now, sideloading is our recommended beta testing method!
+> We plan to launch on TestFlight and app stores soon. For now, sideloading on emulators is our recommended beta testing method!
 
 ---
 
@@ -121,3 +121,5 @@ It was a mission well worth taking!
 
 For inquiries, please feel free to contact: mathtrix2048@gmail.com.
 Thank you so much!
+
+

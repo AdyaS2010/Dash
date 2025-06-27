@@ -49,14 +49,14 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
 
       // Safely extract data with proper type checking
       final data = documentSnapshot.data() as Map<String, dynamic>?;
-      
+
       final currentHighScore = data?['highScore'] ?? 0;
       final currentTotalPoints = data?['totalPoints'] ?? 0;
-      
+
       // Handle levelsUnlocked field safely - it's a Map<String, bool> in Firestore
       List<String> unlockedLevels = [];
       final levelsUnlockedData = data?['levelsUnlocked'];
-      
+
       if (levelsUnlockedData == null) {
         // If field doesn't exist, start with level1
         unlockedLevels = ['level1'];
@@ -66,14 +66,16 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
             .where((entry) => entry.value == true)
             .map((entry) => entry.key.toString())
             .toList();
-        
+
         // Ensure level1 is always included if no levels are unlocked
         if (unlockedLevels.isEmpty) {
           unlockedLevels = ['level1'];
         }
       } else {
         // Fallback: start with level1
-        print("Unexpected type for levelsUnlocked: ${levelsUnlockedData.runtimeType}");
+        print(
+          "Unexpected type for levelsUnlocked: ${levelsUnlockedData.runtimeType}",
+        );
         unlockedLevels = ['level1'];
       }
 
@@ -82,7 +84,9 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
       print("Current unlocked levels: $unlockedLevels");
 
       // Calculate the new high score and total points
-      final newHighScore = (score > currentHighScore) ? score : currentHighScore;
+      final newHighScore = (score > currentHighScore)
+          ? score
+          : currentHighScore;
       final newTotalPoints = currentTotalPoints + score;
 
       print("New high score: $newHighScore");
@@ -90,26 +94,28 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
 
       // Check and unlock levels dynamically
       Map<String, bool> levelsUnlockedMap = {};
-      
+
       // Convert current unlocked levels list to map format
       for (String level in unlockedLevels) {
         levelsUnlockedMap[level] = true;
       }
-      
+
       // Check thresholds and add new levels
       levelUnlockThresholds.forEach((levelName, threshold) {
         if (newTotalPoints >= threshold) {
           levelsUnlockedMap[levelName] = true;
           if (!unlockedLevels.contains(levelName)) {
             unlockedLevels.add(levelName);
-            print("Level $levelName unlocked for user $uid! (Total XP: $newTotalPoints)");
+            print(
+              "Level $levelName unlocked for user $uid! (Total XP: $newTotalPoints)",
+            );
           }
         } else {
           // Ensure levels that don't meet threshold are marked as false
           levelsUnlockedMap[levelName] = levelsUnlockedMap[levelName] ?? false;
         }
       });
-      
+
       // Ensure level1 is always unlocked
       levelsUnlockedMap['level1'] = true;
 
@@ -124,8 +130,9 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
       }, SetOptions(merge: true));
 
       print("Document updated successfully!");
-      print("Score and question data updated successfully for user $uid. Total XP: $newTotalPoints, Levels Unlocked: $unlockedLevels");
-      
+      print(
+        "Score and question data updated successfully for user $uid. Total XP: $newTotalPoints, Levels Unlocked: $unlockedLevels",
+      );
     } catch (e) {
       print("Error updating score for user $uid: $e");
       print("Error type: ${e.runtimeType}");
@@ -141,8 +148,17 @@ Future<void> _saveScoreToFirestore(int score, int questionsCorrect) async {
 
 class GameScreen extends StatefulWidget {
   final bool isReload;
+  final int level;
 
-  const GameScreen({super.key, this.isReload = false});
+  /*const GameScreen({Key? key, this.isReload = false, this.level = 1})
+    : super(key: key);
+  */
+
+  const GameScreen({
+    super.key, // Use super parameter
+    this.isReload = false,
+    this.level = 1, // Default to level 1
+  });
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -212,43 +228,43 @@ class _GameScreenState extends State<GameScreen> {
                       return Text(
                         '${stats['correct']}/${stats['total']} ✓',
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                            color: Colors.white,
+                            fontSize: 14,
                           fontWeight: FontWeight.w500,
-                        ),
+                          ),
                       );
                     },
                   ),
-                  StreamBuilder<bool>(
-                    stream: game.isPausedStream,
-                    builder: (context, snapshot) {
-                      final isGamePaused = snapshot.data ?? false;
+                      StreamBuilder<bool>(
+                        stream: game.isPausedStream,
+                        builder: (context, snapshot) {
+                          final isGamePaused = snapshot.data ?? false;
                       return IconButton(
-                        onPressed: () {
-                          if (isGamePaused) {
-                            game.resumeGame();
-                          } else {
-                            game.pauseGame();
-                          }
-                        },
-                        icon: Icon(
-                          isGamePaused ? Icons.play_arrow : Icons.pause,
+                              onPressed: () {
+                                if (isGamePaused) {
+                                  game.resumeGame();
+                                } else {
+                                  game.pauseGame();
+                                }
+                              },
+                              icon: Icon(
+                                isGamePaused ? Icons.play_arrow : Icons.pause,
                           color: Colors.white,
-                          size: 20,
-                        ),
-                      );
-                    },
-                  ),
+                                size: 20,
+                            ),
+                          );
+                        },
+                      ),
                   IconButton(
-                    onPressed: () {
-                      FlameAudio.bgm.stop();
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.close,
+                          onPressed: () {
+                            FlameAudio.bgm.stop();
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.close,
                       color: Colors.white,
-                      size: 20,
-                    ),
+                            size: 20,
+                        ),
                   ),
                 ],
               ),
@@ -287,72 +303,72 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildPauseOverlay(BuildContext context) {
-    return Container(
+  return Container(
       color: Colors.black.withValues(alpha: 0.8),
-      child: Center(
-        child: TweenAnimationBuilder<double>(
+    child: Center(
+      child: TweenAnimationBuilder<double>(
           duration: const Duration(milliseconds: 300),
-          tween: Tween(begin: 0.0, end: 1.0),
-          builder: (context, value, child) {
-            return Transform.scale(
+        tween: Tween(begin: 0.0, end: 1.0),
+        builder: (context, value, child) {
+          return Transform.scale(
               scale: 0.8 + (0.2 * value),
-              child: Opacity(
-                opacity: value,
-                child: Container(
+            child: Opacity(
+              opacity: value,
+              child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 32),
                   padding: const EdgeInsets.all(32),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
                         Color(0xFF1A1A2E),
                         Color(0xFF16213E),
                         Color(0xFF0F3460),
-                      ],
-                    ),
+                    ],
+                  ),
                     borderRadius: BorderRadius.circular(25),
-                    border: Border.all(
+                  border: Border.all(
                       color: const Color(0xFF3C896D),
                       width: 2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
+                  ),
+                  boxShadow: [
+                    BoxShadow(
                         color: const Color(0xFF3C896D).withValues(alpha: 0.3),
                         blurRadius: 25,
                         spreadRadius: 2,
                         offset: const Offset(0, 8),
-                      ),
-                      BoxShadow(
+                    ),
+                    BoxShadow(
                         color: Colors.black.withValues(alpha: 0.4),
                         blurRadius: 15,
                         offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                       // Pause icon with glow effect
-                      Container(
+                    Container(
                         padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
+                      decoration: BoxDecoration(
                           color: const Color(0xFF3C896D).withValues(alpha: 0.2),
-                          shape: BoxShape.circle,
-                          border: Border.all(
+                        shape: BoxShape.circle,
+                        border: Border.all(
                             color: const Color(
                               0xFF3C896D,
                             ).withValues(alpha: 0.5),
-                            width: 2,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.pause_circle_filled,
-                          color: Color(0xFF3C896D),
-                          size: 48,
+                          width: 2,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                            child: const Icon(
+                              Icons.pause_circle_filled,
+                          color: Color(0xFF3C896D),
+                          size: 48,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
 
                       // Title with enhanced styling
                       const Text(
@@ -360,129 +376,129 @@ class _GameScreenState extends State<GameScreen> {
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                        color: Colors.white,
                           letterSpacing: 1.2,
-                        ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Take a break and come back when ready!',
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Take a break and come back when ready!',
                         style: TextStyle(
-                          fontSize: 16,
+                        fontSize: 16,
                           color: Colors.white.withValues(alpha: 0.7),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w400,
                       ),
-                      const SizedBox(height: 32),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 32),
 
-                      // Enhanced Resume Button
-                      _buildPauseButton(
-                        onPressed: () => game.resumeGame(),
-                        icon: Icons.play_arrow,
+                    // Enhanced Resume Button
+                    _buildPauseButton(
+                      onPressed: () => game.resumeGame(),
+                      icon: Icons.play_arrow,
                         label: 'Resume Game',
                         color: const Color(0xFF3C896D),
-                        isPrimary: true,
-                      ),
-                      const SizedBox(height: 16),
+                      isPrimary: true,
+                    ),
+                    const SizedBox(height: 16),
 
                       // Action buttons row
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildPauseButton(
-                              onPressed: () {
-                                game.reloadGameScreen(context);
-                              },
-                              icon: Icons.refresh,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildPauseButton(
+                            onPressed: () {
+                              game.reloadGameScreen(context);
+                            },
+                            icon: Icons.refresh,
                               label: 'Restart',
                               color: const Color(0xFF9F4A54),
-                              isCompact: true,
-                            ),
+                            isCompact: true,
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _buildPauseButton(
-                              onPressed: () {
-                                FlameAudio.bgm.stop();
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _buildPauseButton(
+                            onPressed: () {
+                              FlameAudio.bgm.stop();
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
                               icon: Icons.home,
                               label: 'Dashboard',
                               color: const Color(0xFF6B7280),
-                              isCompact: true,
-                            ),
+                            isCompact: true,
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
 
                       // Quick stats preview (if available)
-                      StreamBuilder<Map<String, int>>(
-                        stream: game.statsStream,
-                        builder: (context, snapshot) {
-                          final stats =
-                              snapshot.data ?? {'correct': 0, 'total': 0};
-                          if (stats['total']! > 0) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
+                    StreamBuilder<Map<String, int>>(
+                      stream: game.statsStream,
+                      builder: (context, snapshot) {
+                        final stats =
+                            snapshot.data ?? {'correct': 0, 'total': 0};
+                        if (stats['total']! > 0) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
                                 vertical: 12,
-                              ),
-                              decoration: BoxDecoration(
+                            ),
+                            decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
+                              border: Border.all(
                                   color: Colors.white.withValues(alpha: 0.2),
-                                ),
                               ),
-                              child: Row(
+                            ),
+                            child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _buildStatItem(
-                                    Icons.quiz,
-                                    '${stats['total']}',
-                                    'Questions',
-                                  ),
-                                  Container(
-                                    height: 30,
-                                    width: 1,
+                              children: [
+                                _buildStatItem(
+                                  Icons.quiz,
+                                  '${stats['total']}',
+                                  'QUESTIONS',
+                                ),
+                                Container(
+                                  height: 35,
+                                  width: 1,
                                     color: Colors.white.withValues(alpha: 0.3),
-                                  ),
-                                  _buildStatItem(
-                                    Icons.check_circle,
-                                    '${stats['correct']}',
-                                    'Correct',
-                                  ),
-                                  Container(
-                                    height: 30,
-                                    width: 1,
+                                ),
+                                _buildStatItem(
+                                  Icons.check_circle,
+                                  '${stats['correct']}',
+                                  'CORRECT',
+                                ),
+                                Container(
+                                  height: 35,
+                                  width: 1,
                                     color: Colors.white.withValues(alpha: 0.3),
-                                  ),
-                                  _buildStatItem(
-                                    Icons.trending_up,
-                                    '${stats['total']! > 0 ? (stats['correct']! / stats['total']! * 100).round() : 0}%',
-                                    'Accuracy',
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ],
-                  ),
+                                ),
+                                _buildStatItem(
+                                  Icons.trending_up,
+                                  '${stats['total']! > 0 ? (stats['correct']! / stats['total']! * 100).round() : 0}%',
+                                  'ACCURACY',
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildPauseButton({
     required VoidCallback onPressed,
@@ -1569,7 +1585,8 @@ class DashRocketGame extends FlameGame
   Stream<Map<String, int>> get finalStatsStream => _finalStatsController.stream;
 
   final bool _isReload;
-  DashRocketGame({bool isReload = false}) : _isReload = isReload;
+  DashRocketGame({bool isReload = false, this.currentLevel = 1})
+    : _isReload = isReload;
 
   @override
   Future<void> onLoad() async {
@@ -1584,8 +1601,8 @@ class DashRocketGame extends FlameGame
       'lvl-up.mp3',
       'done.mp3',
       'game.mp3',
+      'new.mp3',
       'launch.mp3',
-      'sound.mp3',
       'notification.mp3',
       'shot.mp3',
       'page.mp3',
@@ -1614,7 +1631,7 @@ class DashRocketGame extends FlameGame
 
     // add a small delay before starting music to ensure proper initialization (only if its a reload)
     if (_isReload) {
-      await Future.delayed(const Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 500));
     }
 
     // start the quite immersive background music experience
@@ -1651,96 +1668,351 @@ class DashRocketGame extends FlameGame
     add(finishGateTimer);
   }
 
-  void _generateQuestions() {
-    final questionTemplates = [
-      // diverse algebra problems for engagement
-      {
-        'equation': 'x + 3 = 8',
-        'answer': 5,
-        'options': [3, 5, 7, 11, 8],
-      },
-      {
-        'equation': 'x - 4 = 6',
-        'answer': 10,
-        'options': [2, 8, 10, 12, 14],
-      },
-      {
-        'equation': '2x = 12',
-        'answer': 6,
-        'options': [4, 6, 8, 10, 24],
-      },
-      {
-        'equation': 'x/3 = 4',
-        'answer': 12,
-        'options': [7, 9, 12, 15, 1],
-      },
-      {
-        'equation': '3x + 1 = 10',
-        'answer': 3,
-        'options': [2, 3, 4, 5, 9],
-      },
-      {
-        'equation': '2x - 5 = 7',
-        'answer': 6,
-        'options': [4, 5, 6, 7, 12],
-      },
-      {
-        'equation': 'x + 7 = 15',
-        'answer': 8,
-        'options': [6, 7, 8, 9, 22],
-      },
-      {
-        'equation': '4x = 20',
-        'answer': 5,
-        'options': [3, 4, 5, 6, 80],
-      },
-      {
-        'equation': 'x/2 = 9',
-        'answer': 18,
-        'options': [16, 17, 18, 19, 4],
-      },
-      {
-        'equation': '5x - 3 = 17',
-        'answer': 4,
-        'options': [2, 3, 4, 5, 14],
-      },
-      {
-        'equation': 'x + 12 = 20',
-        'answer': 8,
-        'options': [6, 7, 8, 9, 32],
-      },
-      {
-        'equation': '3x = 21',
-        'answer': 7,
-        'options': [5, 6, 7, 8, 63],
-      },
-      {
-        'equation': 'x - 8 = 2',
-        'answer': 10,
-        'options': [8, 9, 10, 11, 6],
-      },
-      {
-        'equation': '2x + 4 = 14',
-        'answer': 5,
-        'options': [3, 4, 5, 6, 9],
-      },
-      {
-        'equation': 'x/4 = 3',
-        'answer': 12,
-        'options': [9, 11, 12, 13, 0],
-      },
-    ];
+  // added this property to the DashRocketGame class
+  int currentLevel = 1; // to track current level
 
+  void _generateQuestions() {
     questions.clear();
-    questions.addAll(
-      questionTemplates.map(
-        (q) => MathQuestion(
-          equation: q['equation'] as String,
-          correctAnswer: q['answer'] as int,
-          options: List<int>.from(q['options'] as List),
+
+    // Generate 15-20 questions per level for variety
+    final int questionCount = 15 + random.nextInt(6); // 15-20 questions
+
+    switch (currentLevel) {
+      case 1:
+        _generateLevel1Questions(questionCount);
+        break;
+      case 2:
+        _generateLevel2Questions(questionCount);
+        break;
+      case 3:
+        _generateLevel3Questions(questionCount);
+        break;
+      case 4:
+        _generateLevel4Questions(questionCount);
+        break;
+      case 5:
+        _generateLevel5Questions(questionCount);
+        break;
+      default:
+        _generateLevel1Questions(questionCount);
+    }
+  }
+
+  // Level 1: basic variable operations (x + a = b, x - a = b, ax = b, x/a = b)
+  void _generateLevel1Questions(int count) {
+    for (int i = 0; i < count; i++) {
+      final operationType = random.nextInt(4);
+      late Map<String, dynamic> question;
+
+      switch (operationType) {
+        case 0: // Addition: x + a = b
+          final a = 2 + random.nextInt(8); // 2-9
+          final x = 1 + random.nextInt(12); // 1-12
+          final b = x + a;
+          question = {
+            'equation': 'x + $a = $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 15),
+          };
+          break;
+
+        case 1: // Subtraction: x - a = b
+          final a = 2 + random.nextInt(6); // 2-7
+          final b = 1 + random.nextInt(8); // 1-8
+          final x = a + b;
+          question = {
+            'equation': 'x - $a = $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 15),
+          };
+          break;
+
+        case 2: // Multiplication: ax = b
+          final a = 2 + random.nextInt(4); // 2-5
+          final x = 2 + random.nextInt(8); // 2-9
+          final b = a * x;
+          question = {
+            'equation': '${a}x = $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 12),
+          };
+          break;
+
+        case 3: // Division: x/a = b
+          final a = 2 + random.nextInt(4); // 2-5
+          final b = 2 + random.nextInt(6); // 2-7
+          final x = a * b;
+          question = {
+            'equation': 'x/$a = $b',
+            'answer': x,
+            'options': _generateOptions(x, 2, 20),
+          };
+          break;
+      }
+
+      questions.add(
+        MathQuestion(
+          equation: question['equation'] as String,
+          correctAnswer: question['answer'] as int,
+          options: List<int>.from(question['options'] as List),
         ),
-      ),
-    );
+      );
+    }
+  }
+
+  // Level 2: single-variable inequalities (x + a > b, x - a < b, etc.)
+  void _generateLevel2Questions(int count) {
+    final operators = ['>', '<', '≥', '≤'];
+
+    for (int i = 0; i < count; i++) {
+      final opType = random.nextInt(4);
+      final inequality = operators[random.nextInt(4)];
+      late Map<String, dynamic> question;
+
+      switch (opType) {
+        case 0: // Addition: x + a > b
+          final a = 2 + random.nextInt(6);
+          final x = 1 + random.nextInt(10);
+          final b = x + a + (inequality.contains('>') ? -1 : 1);
+          question = {
+            'equation': 'x + $a $inequality $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 15),
+          };
+          break;
+
+        case 1: // Subtraction: x - a < b
+          final a = 2 + random.nextInt(5);
+          final b = 1 + random.nextInt(6);
+          final x = a + b + (inequality.contains('<') ? 1 : -1);
+          question = {
+            'equation': 'x - $a $inequality $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 15),
+          };
+          break;
+
+        case 2: // Multiplication: ax > b
+          final a = 2 + random.nextInt(3);
+          final x = 2 + random.nextInt(6);
+          final b = a * x + (inequality.contains('>') ? -1 : 1);
+          question = {
+            'equation': '${a}x $inequality $b',
+            'answer': x,
+            'options': _generateOptions(x, 1, 12),
+          };
+          break;
+
+        case 3: // Division: x/a ≤ b
+          final a = 2 + random.nextInt(3);
+          final b = 2 + random.nextInt(5);
+          final x = a * b;
+          question = {
+            'equation': 'x/$a $inequality $b',
+            'answer': x,
+            'options': _generateOptions(x, 2, 18),
+          };
+          break;
+      }
+
+      questions.add(
+        MathQuestion(
+          equation: question['equation'] as String,
+          correctAnswer: question['answer'] as int,
+          options: List<int>.from(question['options'] as List),
+        ),
+      );
+    }
+  }
+
+  // Level 3: linear equations and slope (y = mx + b, find slope, etc.)
+  void _generateLevel3Questions(int count) {
+    for (int i = 0; i < count; i++) {
+      final questionType = random.nextInt(3);
+      late Map<String, dynamic> question;
+
+      switch (questionType) {
+        case 0: // Find slope from y = mx + b
+          final m = 1 + random.nextInt(8); // slope 1-8
+          final b = random.nextInt(10); // y-intercept 0-9
+          question = {
+            'equation': 'Find slope of y = ${m}x + $b',
+            'answer': m,
+            'options': _generateOptions(m, 1, 10),
+          };
+          break;
+
+        case 1: // Find y-intercept
+          final m = 2 + random.nextInt(5);
+          final b = 1 + random.nextInt(8);
+          question = {
+            'equation': 'Find y-intercept of y = ${m}x + $b',
+            'answer': b,
+            'options': _generateOptions(b, 0, 12),
+          };
+          break;
+
+        case 2: // Solve linear equation: mx + b = c
+          final m = 2 + random.nextInt(4);
+          final b = 1 + random.nextInt(6);
+          final x = 1 + random.nextInt(8);
+          final c = m * x + b;
+          question = {
+            'equation': '${m}x + $b = $c',
+            'answer': x,
+            'options': _generateOptions(x, 1, 12),
+          };
+          break;
+      }
+
+      questions.add(
+        MathQuestion(
+          equation: question['equation'] as String,
+          correctAnswer: question['answer'] as int,
+          options: List<int>.from(question['options'] as List),
+        ),
+      );
+    }
+  }
+
+  // Level 4: exponential & radical expressions
+  void _generateLevel4Questions(int count) {
+    for (int i = 0; i < count; i++) {
+      final questionType = random.nextInt(4);
+      late Map<String, dynamic> question;
+
+      switch (questionType) {
+        case 0: // Simple exponents: x² = a
+          final x = 2 + random.nextInt(6); // 2-7 to keep x² reasonable
+          final xSquared = x * x;
+          question = {
+            'equation': 'x² = $xSquared',
+            'answer': x,
+            'options': _generateOptions(x, 1, 10),
+          };
+          break;
+
+        case 1: // Cube roots: ∛a = x
+          final x = 2 + random.nextInt(4); // 2-5
+          final xCubed = x * x * x;
+          question = {
+            'equation': '∛$xCubed = x',
+            'answer': x,
+            'options': _generateOptions(x, 1, 8),
+          };
+          break;
+
+        case 2: // Simple radicals: √a = x
+          final x = 2 + random.nextInt(6); // 2-7
+          final xSquared = x * x;
+          question = {
+            'equation': '√$xSquared = x',
+            'answer': x,
+            'options': _generateOptions(x, 1, 10),
+          };
+          break;
+
+        case 3: // Exponential equations: 2^x = a
+          final x = 2 + random.nextInt(4); // 2-5 to keep 2^x manageable
+          final result = 1 << x; // 2^x using bit shift
+          question = {
+            'equation': '2^x = $result',
+            'answer': x,
+            'options': _generateOptions(x, 1, 8),
+          };
+          break;
+      }
+
+      questions.add(
+        MathQuestion(
+          equation: question['equation'] as String,
+          correctAnswer: question['answer'] as int,
+          options: List<int>.from(question['options'] as List),
+        ),
+      );
+    }
+  }
+
+  // Level 5: quadratic equations (factoring and solving)
+  void _generateLevel5Questions(int count) {
+    for (int i = 0; i < count; i++) {
+      final questionType = random.nextInt(3);
+      late Map<String, dynamic> question;
+
+      switch (questionType) {
+        case 0: // Simple quadratic: x² - a = 0
+          final x = 2 + random.nextInt(5); // 2-6
+          final a = x * x;
+          question = {
+            'equation': 'x² - $a = 0',
+            'answer': x,
+            'options': _generateOptions(x, 1, 10),
+          };
+          break;
+
+        case 1: // Factored form: (x - a)(x - b) = 0, find smaller root
+          final root1 = 1 + random.nextInt(5); // 1-5
+          final root2 = root1 + 1 + random.nextInt(3); // ensure root2 > root1
+          final b = root1 + root2;
+          final c = root1 * root2;
+          question = {
+            'equation': 'x² - ${b}x + $c = 0 (smaller root)',
+            'answer': root1,
+            'options': _generateOptions(root1, 1, 8),
+          };
+          break;
+
+        case 2: // Perfect square: (x - a)² = 0
+          final x = 2 + random.nextInt(6); // 2-7
+          final a = x;
+          final expanded = x * x;
+          question = {
+            'equation': 'x² - ${2 * a}x + $expanded = 0',
+            'answer': x,
+            'options': _generateOptions(x, 1, 10),
+          };
+          break;
+      }
+
+      questions.add(
+        MathQuestion(
+          equation: question['equation'] as String,
+          correctAnswer: question['answer'] as int,
+          options: List<int>.from(question['options'] as List),
+        ),
+      );
+    }
+  }
+
+  // helper function -> to generate m plausible wrong answers
+  List<int> _generateOptions(int correctAnswer, int minRange, int maxRange) {
+    final Set<int> options = {correctAnswer};
+
+    // Add some close wrong answers
+    options.add((correctAnswer - 1).clamp(minRange, maxRange));
+    options.add((correctAnswer + 1).clamp(minRange, maxRange));
+
+    // Add some random wrong answers within range
+    while (options.length < 5) {
+      final wrongAnswer = minRange + random.nextInt(maxRange - minRange + 1);
+      if (wrongAnswer != correctAnswer) {
+        options.add(wrongAnswer);
+      }
+    }
+
+    // Convert to list and shuffle
+    final List<int> result = options.toList();
+    result.shuffle(random);
+
+    // Ensure we have exactly 5 options
+    while (result.length < 5) {
+      final filler = minRange + random.nextInt(maxRange - minRange + 1);
+      if (!result.contains(filler)) {
+        result.add(filler);
+      }
+    }
+
+    return result.take(5).toList();
   }
 
   void _spawnAsteroidBelt() {
@@ -1822,33 +2094,35 @@ class DashRocketGame extends FlameGame
       _updateStats(); // ensure final stats include completion bonus
 
       // await _saveScoreToFirestore(score, questionsCorrect);
-      
+
       // clean up timers
       children.whereType<TimerComponent>().forEach(
         (timer) => timer.removeFromParent(),
       );
-      
+
       // stop background music
       FlameAudio.bgm.stop();
-      
+
       // create final stats (after completion bonus is added)
       final finalStats = {
         'correct': questionsCorrect,
         'total': questionsTotal,
         'xp': score,
       };
-      
+
       // update all streams with final values
       _scoreController.add(score);
       _statsController.add(finalStats);
       _finalStatsController.add(finalStats);
       _gameCompleteController.add(true);
       _updateGameState();
-      
+
       // save to Firestore ONCE with final values
       try {
         await _saveScoreToFirestore(score, questionsCorrect);
-        print("Game completed! Final score: $score, Questions correct: $questionsCorrect");
+        print(
+          "Game completed! Final score: $score, Questions correct: $questionsCorrect",
+        );
       } catch (e) {
         print("Error saving to Firestore: $e");
       }

@@ -82,3 +82,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'dash-14707.firebasestorage.app',
   );
 }
+

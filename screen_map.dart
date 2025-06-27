@@ -1,6 +1,10 @@
 // ignore_for_file: avoid_print
 
-import 'lesson_plan.dart';
+import 'lesson_plan_1.dart';
+import 'lesson_plan_2.dart';
+import 'lesson_plan_3.dart';
+import 'lesson_plan_4.dart';
+import 'lesson_plan_5.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -102,10 +106,7 @@ class MapScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 4),
-              Text(
-                '🚀',
-                style: const TextStyle(fontSize: 16),
-              ),
+              // Text('🚀', style: const TextStyle(fontSize: 16)),
             ],
           ),
           const Spacer(),
@@ -146,7 +147,7 @@ class MapScreen extends StatelessWidget {
                   if (context.mounted) {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      '/',
+                      '/login',
                       (route) => false,
                     );
                   }
@@ -220,10 +221,7 @@ class MapScreen extends StatelessWidget {
         if (!snapshot.hasData || !snapshot.data!.exists) {
           return Text(
             "User data not found",
-            style: GoogleFonts.rajdhani(
-              color: Colors.white,
-              fontSize: 16,
-            ),
+            style: GoogleFonts.rajdhani(color: Colors.white, fontSize: 16),
           );
         }
 
@@ -273,7 +271,11 @@ class MapScreen extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.person, color: Colors.white, size: 24),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Flexible(
@@ -297,7 +299,7 @@ class MapScreen extends StatelessWidget {
                   const Text('🌟', style: TextStyle(fontSize: 16)),
                   const SizedBox(width: 8),
                   Text(
-                    'Level 1 • $totalScore XP',
+                    'Level $levelsComplete • $totalScore XP',
                     style: GoogleFonts.rajdhani(
                       color: Colors.white70,
                       fontSize: 16,
@@ -366,11 +368,7 @@ class MapScreen extends StatelessWidget {
   }) {
     return Column(
       children: [
-        Icon(
-          icon,
-          color: Colors.white70,
-          size: 20,
-        ),
+        Icon(icon, color: Colors.white70, size: 20),
         const SizedBox(height: 4),
         Text(
           value,
@@ -411,11 +409,7 @@ class MapScreen extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(
-              Icons.explore,
-              color: Colors.white,
-              size: 20,
-            ),
+            child: const Icon(Icons.explore, color: Colors.white, size: 20),
           ),
           const SizedBox(width: 12),
           Text(
@@ -454,10 +448,7 @@ class MapScreen extends StatelessWidget {
             snapshot.data![1] == null) {
           return Text(
             "Error loading levels",
-            style: GoogleFonts.rajdhani(
-              color: Colors.white,
-              fontSize: 16,
-            ),
+            style: GoogleFonts.rajdhani(color: Colors.white, fontSize: 16),
           );
         }
 
@@ -487,12 +478,7 @@ class MapScreen extends StatelessWidget {
               difficulty: data['difficulty'] ?? 'Beginner',
               onTap: unlocked
                   ? () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Level1LessonPage(),
-                        ),
-                      );
+                      _navigateToLevelLesson(context, levelName);
                     }
                   : null,
             );
@@ -500,6 +486,56 @@ class MapScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  // Add this method to handle navigation
+  void _navigateToLevelLesson(BuildContext context, String levelName) {
+    switch (levelName.toLowerCase()) {
+      case 'level1':
+      case 'level_1':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Level1LessonPage()),
+        );
+        break;
+      case 'level2':
+      case 'level_2':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Level2LessonPage()),
+        );
+        break;
+      case 'level3':
+      case 'level_3':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Level3LessonPage()),
+        );
+        break;
+      // add more levels as needed
+      case 'level4':
+      case 'level_4':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Level4LessonPage()),
+        );
+        break;
+      case 'level5':
+      case 'level_5':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Level5LessonPage()),
+        );
+        break;
+      default:
+        // Show error or default page
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Level $levelName not implemented yet'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+    }
   }
 
   Widget _buildLevelCard({
@@ -556,7 +592,7 @@ class MapScreen extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Enhanced level icon
+              // enhanced level icon!
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
@@ -570,7 +606,9 @@ class MapScreen extends StatelessWidget {
                           end: Alignment.bottomRight,
                         )
                       : null,
-                  color: !isUnlocked ? accentColor.withValues(alpha: 0.1) : null,
+                  color: !isUnlocked
+                      ? accentColor.withValues(alpha: 0.1)
+                      : null,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: accentColor.withValues(alpha: 0.3),
@@ -580,7 +618,7 @@ class MapScreen extends StatelessWidget {
                 child: Icon(icon, color: accentColor, size: 26),
               ),
               const SizedBox(width: 18),
-              // Enhanced level info
+              // enhanced level info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
